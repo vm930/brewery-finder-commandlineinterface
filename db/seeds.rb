@@ -1,9 +1,16 @@
 User.destroy_all
 Brewery.destroy_all
 
+#seed on User
 user1 = User.create(user_name:'vicky', age: 10)
 user2 = User.create(user_name:'victoria', age: 21)
 user3 = User.create(user_name:'victor', age: 45)
+
+#seed on favorites 
+
+# Favorite.create()
+
+#seed on Brewery
 
 data =[
   {
