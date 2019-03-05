@@ -1,7 +1,9 @@
-puts "hello"
-# user1 = User.create(user_name:'vicky', age: 10)
-# user2 = User.create(user_name:'victoria', age: 21)
-# user3 = User.create(user_name:'victor', age: 45)
+User.destroy_all
+Brewery.destroy_all
+
+user1 = User.create(user_name:'vicky', age: 10)
+user2 = User.create(user_name:'victoria', age: 21)
+user3 = User.create(user_name:'victor', age: 45)
 
 data =[
   {
@@ -19,7 +21,6 @@ data =[
     "website_url": "http://www.avondalebrewing.com",
     "updated_at": "2018-08-23T23:19:57.825Z",
     "tag_list": [
-      
     ]
   },
   {
@@ -113,6 +114,10 @@ data =[
 }
 ]
 
-# data.each do |brewery_hash| #create new instance of database
-#     brewery_hash.find_or_create_by(name: brewery_hash["name"])
-# end
+data.each do |brewery_hash| #create new instance of database
+    # Brewery.create(brewery_hash) iterate over data hash to create attribute to link into the database breweries table 
+    # Brewery.create(name: brewery_hash[:name])
+
+    Brewery.create(name: brewery_hash[:name], street:brewery_hash[:street],city:brewery_hash[:city],state:brewery_hash[:state],zip:brewery_hash[:postal_code],country:brewery_hash[:country],phone:brewery_hash[:phone],website_url:brewery_hash[:website_url])
+    
+end

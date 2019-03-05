@@ -6,6 +6,9 @@ class CreateFavorites < ActiveRecord::Migration[5.0]
      t.integer :rating
 
      t.timestamps
+     
+      # change_column :favorites, :rating, :boolean
+      # rename_column :favorites, :rating, :favorite
     end 
   end
 end
