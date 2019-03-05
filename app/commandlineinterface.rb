@@ -32,7 +32,7 @@ class CommandLineInterface
         elsif user_menu_input == "B"
             search_by_state
         elsif user_menu_input == "C"
-            #view_favorites
+            view_favorites
         elsif user_menu_input == "D"
             puts"D"
         elsif user_menu_input == "E"
@@ -51,10 +51,18 @@ class CommandLineInterface
        user_input = gets.chomp 
        zip_array = Brewery.where(zip: user_input)
        zip_array.each do |zip|
-       puts zip.name
-       puts zip.state
-       puts zip.street
-       end
+            puts zip.name
+            puts zip.state
+            puts zip.street
+            puts "Would you like to add to your favorite? y/n"
+            user_anwer = gets.chomp
+                if user_anwer =="y"
+                    create_favorites(zip.id)
+                    puts "Saved!"           
+                elsif user_anwer == "n"
+                    puts "No worries." 
+                end
+        end
 
     end 
     #writing method for Option B
@@ -66,18 +74,32 @@ class CommandLineInterface
             puts state.name
             puts state.state
             puts state.street
+            puts "Would you like to add to your favorite? y/n"
+            user_anwer= gets.chomp
+                if user_anwer == "y"
+                    create_favorites(state.id)
+                    puts "Saved!"
+                elsif user_anwer == "n"
+                    puts "No worries."
+                end 
         end 
     end 
     
+    #helper method to add favorite to favorites table in database 
     def create_favorites(brewery_id)
-        user_id = current_user.id
-        Favorites.create(user_id: user_id,brewery_id:brewery_id)
+        Favorite.create(user_id: current_user.id,brewery_id:brewery_id)
     end 
     
     #writing method for Option C
     def view_favorites
-    #create a favorites 
-    #   puts self.current_user
+        #current_user will call favorites method to see the list of favorites table in database
+        favorite_array = Favorite.where(user_id:current_user.id)
+    
+        favorite_array.each do |favorite|
+            binding.pry
+            Brewery.where(favorite.brewery_id)
+            # puts favorite
+        end 
         # current_user.favorites
     end 
     #writing method for Option D   
