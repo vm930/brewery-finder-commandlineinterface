@@ -2,18 +2,18 @@ class CommandLineInterface
     attr_accessor :current_user
    
     def greet
-    puts "Welcome to the Brewery finder, ready to get some Beers?"
-    puts "I can help you find list of local breweries!"
-    gets_user_name
-    display_menu
+        puts "Welcome to the Brewery finder, ready to get some beers?"
+        puts "I can help you find list of local breweries!"
+        gets_user_name
+        display_menu
     end 
 
-    def gets_user_name
-    puts "How should I call you master?"
-    user_name = gets.chomp
-    self.current_user = User.find_or_create_by(user_name: user_name)
-    #user should get send to the users table store 
-    end
+        def gets_user_name
+        puts "How should I call you master?"
+        user_name = gets.chomp
+        self.current_user = User.find_or_create_by(user_name: user_name)
+        #user should be able to store their names into the users table store 
+        end
 
     def display_menu
     puts "
@@ -24,21 +24,19 @@ class CommandLineInterface
                     --D--  Delete My Account
                     --E--  Exit
     "
-    #will store answers here
-    #convert all of the answers into uppercase
     user_menu_input = gets.chomp.upcase
-    
+    #will store answers in user_menu_input
+    #convert all of the answers into uppercase             
         if user_menu_input == "A"
-           puts "A"
-           #search_by_zip
+            search_by_zip
         elsif user_menu_input == "B"
-            puts"B"
+            search_by_state
         elsif user_menu_input == "C"
-            view_favorites
+            #view_favorites
         elsif user_menu_input == "D"
             puts"D"
         elsif user_menu_input == "E"
-            puts"E"
+            exit
         else 
         puts "
                             Please select from the following list
@@ -49,22 +47,42 @@ class CommandLineInterface
     
     #writing method for Option A
     def search_by_zip
-        # TO Look up. Difference between ActiveRcord find_by and where
-        # find_by returns the first one that it finds
-        # where returns a collection of all that match
-       Brewery.find_by(zip: "99515")
+       puts "Please give me zip code, master"
+       user_input = gets.chomp 
+       zip_array = Brewery.where(zip: user_input)
+       zip_array.each do |zip|
+       puts zip.name
+       puts zip.state
+       puts zip.street
+       end
+
     end 
     #writing method for Option B
     def search_by_state
-        Brewery.find_by(state: "Alabama")
+        puts "Please give me a state, master"
+        user_input = gets.chomp.capitalize
+        state_array = Brewery.where(state: user_input)
+        state_array.each do |state|
+            puts state.name
+            puts state.state
+            puts state.street
+        end 
     end 
+    
+    def create_favorites(brewery_id)
+        user_id = current_user.id
+        Favorites.create(user_id: user_id,brewery_id:brewery_id)
+    end 
+    
     #writing method for Option C
     def view_favorites
-      puts self.current_user
+    #create a favorites 
+    #   puts self.current_user
+        # current_user.favorites
     end 
     #writing method for Option D   
-    def delete_user_account
-        delete_user_id = User.find_by(user_name: "victoria").id
+    def delete_user_account(current_user)
+        delete_user_id = User.find_by(user_name: current_user).id
         User.destroy(delete_user_id)
     end 
     #writing method for Option E

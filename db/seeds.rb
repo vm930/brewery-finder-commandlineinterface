@@ -8,8 +8,6 @@ user3 = User.create(user_name:'victor', age: 45)
 
 #seed on favorites 
 
-# Favorite.create()
-
 #seed on Brewery
 
 data =[
