@@ -13,14 +13,15 @@ class ApiCommunicator
 
     # end 
 
-    def get_breweries_by_state(state)
+    def get_breweries_by_state
 
-        response_string = RestClinet.get
-        ('https://api.openbrewerydb.org/breweries?by_state=New+york') #getting breweries from web
+        response_string = RestClient.get('https://api.openbrewerydb.org/breweries?by_state=New+york') #getting breweries from web
         response_hash = JSON.parse(response_string)
         
         response_hash.each do |state_array|
-            state_array[:state]
+            binding.pry
+            state_array["state"]
+            
         end 
 
     end 

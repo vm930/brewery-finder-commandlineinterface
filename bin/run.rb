@@ -1,5 +1,6 @@
 require_relative '../config/environment'
-require_relative '../app/commandlineinterface'
+# require_relative '../app/commandlineinterface'
+# require_relative '../app/api_communicator'
 ActiveRecord::Base.logger = false
 
 # cli = CommandLineInterface.new 
