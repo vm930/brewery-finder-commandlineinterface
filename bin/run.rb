@@ -1,13 +1,20 @@
 require_relative '../config/environment'
 require_relative '../app/commandlineinterface'
+ActiveRecord::Base.logger = false
 
-cli = CommandLineInterface.new 
-cli.greet
-# cli.gets_user_name
-# cli.display_menu
-# cli.gets_user_input
+# cli = CommandLineInterface.new 
+# cli.greet
 
 
 # binding.pry
 
-puts "bye"
+# puts "bye"
+
+api = ApiCommunicator.new
+api.get_breweries_by_state
+
+
+
+# cli.gets_user_name
+# cli.display_menu
+# cli.gets_user_input
