@@ -74,7 +74,7 @@ class CommandLineInterface
     #writing method for Option B
     def search_by_state
         puts "Please give me a state, master"
-        user_input = gets.chomp.capitalize
+        user_input = gets.chomp.downcase.capitalize
         brewery_array = Brewery.where(state: user_input) 
      
     #check to see if there's anything returning from the database    
