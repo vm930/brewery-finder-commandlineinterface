@@ -107,9 +107,7 @@ class CommandLineInterface
     end 
     #writing method for Option D   
     def delete_user_account
-        User.destroy(current_user.id)
-        binding.pry
+        User.all.destroy(current_user.id)
+        puts "Your account have been removed! I will never tell, xoxo"
     end 
-    #writing method for Option E
-
 end
