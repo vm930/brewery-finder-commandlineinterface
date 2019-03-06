@@ -8,12 +8,12 @@ class CommandLineInterface
         display_menu
     end 
 
-        def gets_user_name
-        puts "How should I call you master?"
-        user_name = gets.chomp
-        self.current_user = User.find_or_create_by(user_name: user_name)
-        #user should be able to store their names into the users table store 
-        end
+    def gets_user_name
+    puts "How should I call you master?"
+    user_name = gets.chomp
+    self.current_user = User.find_or_create_by(user_name: user_name)
+    #user should be able to store their names into the users table store 
+    end
 
     def display_menu
     puts "
@@ -29,10 +29,13 @@ class CommandLineInterface
     #convert all of the answers into uppercase             
         if user_menu_input == "A"
             search_by_zip
+            display_menu
         elsif user_menu_input == "B"
             search_by_state
+            display_menu
         elsif user_menu_input == "C"
             view_favorites
+            display_menu
         elsif user_menu_input == "D"
             delete_user_account
         elsif user_menu_input == "E"
@@ -48,9 +51,10 @@ class CommandLineInterface
     #writing method for Option A
     def search_by_zip
        puts "Please give me zip code, master"
-       user_input = gets.chomp
-    #    user_input = find_or_create_by() 
+       user_input = gets.chomp.slice(0,5)
+    #slice chomps up the input of zipcode to the frist 5 characters
        brewery_array = Brewery.where(zip: user_input)
+        
     #check to see if there's anything returning from the database 
        if brewery_array.length > 0 
         brewery_array.each do |brewery|
@@ -67,22 +71,57 @@ class CommandLineInterface
                     end
             end
         else
-            ApiCommunicator.get_breweries(user_input)
-        end
+            response_hash = ApiCommunicator.get_breweries
+            count = 0
 
-    end 
+            response_hash.each do |brewery|
+                # binding.pry
+                if user_input == brewery["postal_code"].slice(0,5)
+                    # binding.pry
+                    count +=1
+                    puts brewery["name"]
+                    puts brewery["state"]
+                    puts brewery["street"]
+                    puts "Would you like to add to your favorite? y/n"
+                    user_anwer = gets.chomp
+                    if user_anwer =="y"
+                        #create a record into the breweries database
+                        brewery_obj = Brewery.create(name: brewery["name"], street:brewery["street"],city:brewery["city"],state:brewery["state"],zip:brewery["postal_code"],country:brewery["country"],phone:brewery["phone"],website_url:brewery["website_url"])
+                        # binding.pry
+
+                        # create_favorites(brewery.id)
+                        #get brewery.id to create favorite 
+                        create_favorites(brewery_obj.id)
+                        puts "Saved!"           
+
+                    elsif user_anwer == "n"
+                        puts "No worries." 
+                    end            
+                else
+                    
+                end
+                
+            end 
+            if count == 0
+                puts "Nothing Found"
+            end
+        end #end of a if statement to check database records
+    end #end of a def method 
+
+
     #writing method for Option B
     def search_by_state
         puts "Please give me a state, master"
         user_input = gets.chomp.downcase.capitalize
         brewery_array = Brewery.where(state: user_input) 
      
-    #check to see if there's anything returning from the database    
+        #check to see if there's anything returning from the database    
         if brewery_array.length > 0 
             brewery_array.each do |brewery|
                 puts brewery.name
                 puts brewery.state
                 puts brewery.street
+                puts brewery.phone
                 puts "Would you like to add to your favorite? y/n"
                 user_anwer= gets.chomp
                     if user_anwer == "y"
@@ -93,7 +132,31 @@ class CommandLineInterface
                     end 
             end 
         else
-            ApiCommunicator.get_breweries_by_state(user_input)
+            response_hash = ApiCommunicator.get_breweries_by_state(user_input)
+
+            response_hash.each do |brewery|
+            puts brewery["name"]
+            puts brewery["state"]
+            puts brewery["street"]
+            puts "Would you like to add to your favorite? y/n"
+                user_anwer = gets.chomp
+                    if user_anwer =="y"
+                        #create a record into the breweries database
+
+                        brewery_obj = Brewery.create(name: brewery["name"], street:brewery["street"],city:brewery["city"],state:brewery["state"],zip:brewery["postal_code"],country:brewery["country"],phone:brewery["phone"],website_url:brewery["website_url"])
+
+                        # binding.pry
+
+                        # create_favorites(brewery.id)
+                        #get brewery.id to create favorite 
+                        create_favorites(brewery_obj.id)
+                        puts "Saved!"           
+
+                    elsif user_anwer == "n"
+                        puts "No worries." 
+                    end
+            end 
+          
         end 
     end 
     
@@ -112,13 +175,14 @@ class CommandLineInterface
            puts Brewery.find(favorite.brewery_id).street
            puts Brewery.find(favorite.brewery_id).city
            puts Brewery.find(favorite.brewery_id).state
-            # binding.pry
-            # end
             end 
         # current_user.favorites
     end 
-    #writing method for Option D   
+    #writing method for Option D 
+
     def delete_user_account
+        # delete their favorites before deleting user 
+        
         User.all.destroy(current_user.id)
         puts "Your account have been removed! I will never tell, xoxo"
     end 
