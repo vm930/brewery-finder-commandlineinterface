@@ -34,7 +34,7 @@ class CommandLineInterface
         elsif user_menu_input == "C"
             view_favorites
         elsif user_menu_input == "D"
-            puts"D"
+            delete_user_account
         elsif user_menu_input == "E"
             exit
         else 
@@ -94,18 +94,21 @@ class CommandLineInterface
     def view_favorites
         #current_user will call favorites method to see the list of favorites table in database
         favorite_array = Favorite.where(user_id:current_user.id)
-    
+       
         favorite_array.each do |favorite|
-            binding.pry
-            Brewery.where(favorite.brewery_id)
-            # puts favorite
-        end 
+           puts Brewery.find(favorite.brewery_id).name
+           puts Brewery.find(favorite.brewery_id).street
+           puts Brewery.find(favorite.brewery_id).city
+           puts Brewery.find(favorite.brewery_id).state
+            # binding.pry
+            # end
+            end 
         # current_user.favorites
     end 
     #writing method for Option D   
-    def delete_user_account(current_user)
-        delete_user_id = User.find_by(user_name: current_user).id
-        User.destroy(delete_user_id)
+    def delete_user_account
+        User.destroy(current_user.id)
+        binding.pry
     end 
     #writing method for Option E
 
