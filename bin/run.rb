@@ -11,8 +11,7 @@ ActiveRecord::Base.logger = false
 
 # puts "bye"
 
-api = ApiCommunicator.new
-api.get_breweries_by_state
+ApiCommunicator.get_breweries_by_state
 
 
 

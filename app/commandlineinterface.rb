@@ -48,20 +48,26 @@ class CommandLineInterface
     #writing method for Option A
     def search_by_zip
        puts "Please give me zip code, master"
-       user_input = gets.chomp 
-       zip_array = Brewery.where(zip: user_input)
-       zip_array.each do |zip|
-            puts zip.name
-            puts zip.state
-            puts zip.street
-            puts "Would you like to add to your favorite? y/n"
-            user_anwer = gets.chomp
-                if user_anwer =="y"
-                    create_favorites(zip.id)
-                    puts "Saved!"           
-                elsif user_anwer == "n"
-                    puts "No worries." 
-                end
+       user_input = gets.chomp
+    #    user_input = find_or_create_by() 
+       brewery_array = Brewery.where(zip: user_input)
+    #check to see if there's anything returning from the database 
+       if brewery_array.length > 0 
+        brewery_array.each do |brewery|
+                puts brewery.name
+                puts brewery_array.state
+                puts brewery_array.street
+                puts "Would you like to add to your favorite? y/n"
+                user_anwer = gets.chomp
+                    if user_anwer =="y"
+                        create_favorites(brewery.id)
+                        puts "Saved!"           
+                    elsif user_anwer == "n"
+                        puts "No worries." 
+                    end
+            end
+        else
+            ApiCommunicator.get_breweries(user_input)
         end
 
     end 
@@ -69,19 +75,25 @@ class CommandLineInterface
     def search_by_state
         puts "Please give me a state, master"
         user_input = gets.chomp.capitalize
-        state_array = Brewery.where(state: user_input)
-        state_array.each do |state|
-            puts state.name
-            puts state.state
-            puts state.street
-            puts "Would you like to add to your favorite? y/n"
-            user_anwer= gets.chomp
-                if user_anwer == "y"
-                    create_favorites(state.id)
-                    puts "Saved!"
-                elsif user_anwer == "n"
-                    puts "No worries."
-                end 
+        brewery_array = Brewery.where(state: user_input) 
+     
+    #check to see if there's anything returning from the database    
+        if brewery_array.length > 0 
+            brewery_array.each do |brewery|
+                puts brewery.name
+                puts brewery.state
+                puts brewery.street
+                puts "Would you like to add to your favorite? y/n"
+                user_anwer= gets.chomp
+                    if user_anwer == "y"
+                        create_favorites(brewery.id)
+                        puts "Saved!"
+                    elsif user_anwer == "n"
+                        puts "No worries."
+                    end 
+            end 
+        else
+            ApiCommunicator.get_breweries_by_state(user_input)
         end 
     end 
     
