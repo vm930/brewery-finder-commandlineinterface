@@ -3,6 +3,8 @@ require_relative '../config/environment'
 # require_relative '../app/api_communicator'
 ActiveRecord::Base.logger = false
 
+cli = CommandLineInterface.new 
+cli.start_music
 puts <<-'BEER FINDER'
  
                               .sssssssss.
@@ -34,16 +36,15 @@ puts <<-'BEER FINDER'
 BEER FINDER
 
 
-cli = CommandLineInterface.new 
 cli.greet
 
 
+cli.end_music
 # binding.pry
 
 puts "bye"
 
 # ApiCommunicator.get_breweries_by_state
-
 
 
 # cli.gets_user_name

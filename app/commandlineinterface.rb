@@ -1,5 +1,6 @@
 class CommandLineInterface
     attr_accessor :current_user
+    attr_accessor :pid
    
     def greet
         puts "Welcome to the Brewery finder, ready to get some beers?"
@@ -21,8 +22,10 @@ class CommandLineInterface
                     --A--  Search Brewery by Zip
                     --B--  Search Brewery by States
                     --C--  See My Favorites
-                    --D--  Delete My Account
-                    --E--  Exit
+                    --D--  Switch to Diffrent User
+                    --E--  Delete My Account
+                    --F--  Exit
+                    --G--  Update User Name
     "
     user_menu_input = gets.chomp.upcase
     #will store answers in user_menu_input
@@ -37,9 +40,15 @@ class CommandLineInterface
             view_favorites
             display_menu
         elsif user_menu_input == "D"
-            delete_user_account
+             gets_user_name
+             display_menu
         elsif user_menu_input == "E"
+            delete_user_account
+        elsif user_menu_input == "F"
+            end_music
             exit
+        elsif user_menu_input == "G"
+            update_user_name
         else 
         puts "
                             Please select from the following list
@@ -132,7 +141,7 @@ class CommandLineInterface
                     end 
             end 
         else
-            response_hash = ApiCommunicator.get_breweries_by_state(user_input)
+            response_hash= ApiCommunicator.get_breweries_by_state(user_input)
 
             response_hash.each do |brewery|
             puts brewery["name"]
@@ -168,23 +177,38 @@ class CommandLineInterface
     #writing method for Option C
     def view_favorites
         #current_user will call favorites method to see the list of favorites table in database
-        favorite_array = Favorite.where(user_id:current_user.id)
-       
-        favorite_array.each do |favorite|
-           puts Brewery.find(favorite.brewery_id).name
-           puts Brewery.find(favorite.brewery_id).street
-           puts Brewery.find(favorite.brewery_id).city
-           puts Brewery.find(favorite.brewery_id).state
+        
+        current_user.breweries.each do |brewery|
+           puts brewery.name
+           puts brewery.street
+           puts brewery.city
+           puts brewery.state
+           puts brewery.phone
             end 
-        # current_user.favorites
+        
     end 
     #writing method for Option D 
 
     def delete_user_account
         # delete their favorites before deleting user
-        # list_to_delete = Favorite.where(user_id:current_user.id)
-        binding.pry
+        
         User.all.destroy(current_user.id)
         puts "Your account have been removed! I will never tell, xoxo"
+    end 
+
+    def update_user_name
+        puts "Great, what you like me to call you?"
+        user_input = gets.chomp
+        # binding.pry
+        current_user.update(user_name: user_input )
+        # current_user.user_name = user_input
+    end 
+
+    def start_music
+        @pid = fork{ exec 'afplay', 'Bubbles in My Beer.m4a' }
+    end 
+
+    def end_music
+        Process.kill("SIGKILL", self.pid)
     end 
 end
