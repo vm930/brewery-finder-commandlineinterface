@@ -181,8 +181,9 @@ class CommandLineInterface
     #writing method for Option D 
 
     def delete_user_account
-        # delete their favorites before deleting user 
-        
+        # delete their favorites before deleting user
+        # list_to_delete = Favorite.where(user_id:current_user.id)
+        binding.pry
         User.all.destroy(current_user.id)
         puts "Your account have been removed! I will never tell, xoxo"
     end 
