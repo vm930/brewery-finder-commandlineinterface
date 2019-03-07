@@ -18,14 +18,15 @@ class CommandLineInterface
 
     def display_menu
     puts "
-                   What would you like to do,master?
+    .===================================================================.
                     --A--  Search Brewery by Zip
                     --B--  Search Brewery by States
                     --C--  See My Favorites
                     --D--  Switch to Diffrent User
-                    --E--  Delete My Account
-                    --F--  Exit
-                    --G--  Update User Name
+                    --E--  Update User Name
+                    --F--  Delete My Account
+                    --G--  Exit
+    .===================================================================.
     "
     user_menu_input = gets.chomp.upcase
     #will store answers in user_menu_input
@@ -43,12 +44,12 @@ class CommandLineInterface
              gets_user_name
              display_menu
         elsif user_menu_input == "E"
-            delete_user_account
+            update_user_name
         elsif user_menu_input == "F"
+            delete_user_account
+        elsif user_menu_input == "G"
             end_music
             exit
-        elsif user_menu_input == "G"
-            update_user_name
         else 
         puts "
                             Please select from the following list
