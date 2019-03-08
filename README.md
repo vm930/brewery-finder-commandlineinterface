@@ -1,4 +1,4 @@
-# :beer: BEER FINDER :beer:
+# :beer: BREWERY FINDER :beer:
 
 ## Setup :beers:
 
