@@ -4,6 +4,7 @@ require_relative '../config/environment'
 ActiveRecord::Base.logger = false
 
 cli = CommandLineInterface.new 
+system "clear"
 cli.start_music
 puts <<-'BEER FINDER'
  

@@ -9,5 +9,4 @@ tmp
 *.iml
 *.log
 *.swp
-
 db/*.db
