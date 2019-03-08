@@ -1,6 +1,6 @@
-`#`:beer: BEER FINDER :beer:
+# :beer: BEER FINDER :beer:
 
-`##`Setup :beers:
+## Setup :beers:
 
 First, run bundle install from the root directory to install dependencies. Next run rake db:migrate to setup the database tables.
 
@@ -9,7 +9,7 @@ Random data has been generated already and stored for you as JSON in the db/json
 Alternatively, you can run rake generate:all to generate a new set of random data, and then rake db:seed to seed the database.
 
 
-`##`Getting StartedRun ruby bin/run.rb to start the program. :beers:
+## Getting StartedRun ruby bin/run.rb to start the program. :beers:
 
                               .sssssssss.
                         .sssssssssssssssssss
@@ -37,7 +37,8 @@ Alternatively, you can run rake generate:all to generate a new set of random dat
               |_  | |\ | |_  (_   |      |__) |_  |_  |__)
               |   | | \| |__ __)  |      |__) |__ |__ | \
 
-From the main menu, type help to list all of the available commands.
+*From the main menu, type help to list all of the available commands.*
+
                     --A--  Search Brewery by Zip
                     --B--  Search Brewery by States
                     --C--  See My Favorites
@@ -46,24 +47,24 @@ From the main menu, type help to list all of the available commands.
                     --F--  Delete My Account
                     --G--  Exit
 
-From the main menu you can get a list of breweries and list of your favorite breweries. You can go to the Switch to Different User or Update User Name to Change user info. or go to the See My Favorites to see more breweries.
+*From the main menu you can get a list of breweries and list of your favorite breweries. You can go to the Switch to Different User or Update User Name to Change user info. or go to the See My Favorites to see more breweries.*
 
-`##`Models: User < Favorite > Brewery :beers:
+## Models: User < Favorite > Brewery :beers:
 
-*User
+*User*
 -has_many :favorites
 -has_many :breweries through :favorites
 
-*Favorite
+*Favorite*
 -belongs_to :users
 -belongs_to :breweries
 
-*Brewery
+*Brewery*
 -has_many :favorites
 -has_many :users through :favorites
 
-`##`SQL Schema :beers:
-  `###`tale breweries
+## SQL Schema :beers:
+  ### tale breweries
   data type   coloumn name
   string       name
   string       street
@@ -76,7 +77,7 @@ From the main menu you can get a list of breweries and list of your favorite bre
   datetime     created_at     null: false
   datetime     updated_at     null: false
     
-  `###`table favorites
+  ### table favorites
   data type   coloumn name
   integer     user_id
   integer     brewery_id
@@ -84,30 +85,30 @@ From the main menu you can get a list of breweries and list of your favorite bre
   datetime    created_at      null: false
   datetime    updated_at      null: false
 
-`###`table users  
+  ### table users  
 data type  coloumn name 
 string     user_name
 integer    age
 datetime   created_at   null: false
 datetime   updated_at   null: false
 
-`###`User Stories
+### User Stories
 
-*As a user, I want to be able to look at all the breweries if given a zipcode
-*As a user, I want to favorite from list of breweries
-*As a user, I want to be able to look at all the breweries if given a state
-*As a user, I want to see list of breweries
-*As a user, I want to be able to switch to a different user without getting out of the program
-*As a user, I want to Delete my account along with my favorite list 
+*As a user, I want to be able to look at all the breweries if given a zipcode*
+*As a user, I want to favorite from list of breweries*
+*As a user, I want to be able to look at all the breweries if given a state*
+*As a user, I want to see list of breweries*
+*As a user, I want to be able to switch to a different user without getting out of the program*
+*As a user, I want to Delete my account along with my favorite list*
 
-`##`API :beers:
-Breweries DB
-https://api.openbrewerydb.org/breweries
+## API :beers:
+[*Breweries DB*]
+(https://api.openbrewerydb.org/breweries)
 
 
-`##`Things considering to Improve:  :beers:
+## Things considering to Improve:  :beers:
 
-Probably list top 5 Breweries within the search instead of all of list
-Adding one more validation question to make sure if the user want to delete their account 
-Adding a functionality of letting user rate their favorite breweries
-Adding a feature where the breweries can be pull up in a list of top 5 in the local area
+-Probably list top 5 Breweries within the search instead of all of list
+-Adding one more validation question to make sure if the user want to delete their account 
+-Adding a functionality of letting user rate their favorite breweries
+-Adding a feature where the breweries can be pull up in a list of top 5 in the local area
