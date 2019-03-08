@@ -1,35 +1,6 @@
-BEER FINDER 
+#:beer: BEER FINDER :beer:
 
-.===================================================================.
-||                                                                 ||
-||                                                                 ||
-||                                                                 ||
-||                            ___                                  ||
-||                          .'   '.                                ||
-||                         /       \           oOoOo               ||
-||                        |         |       ,==|||||               ||
-||                         \       /       _|| |||||               ||
-||                          '.___.'    _.-'^|| |||||               ||
-||                        __/_______.-'     '==HHHHH               ||
-||                   _.-'` /                   """""               ||
-||                .-'     /   oOoOo                                ||
-||                `-._   / ,==|||||                                ||
-||                    '-/._|| |||||                                ||
-||                     /  ^|| |||||                                ||
-||                    /    '==HHHHH                                ||
-||                   /________"""""                                ||
-||                   `\       `\                                   ||
-||                     \        `\   /                             ||
-||                      \         `\/                              ||
-||                      /                                          ||
-||                     /                                           ||
-||                    /_____                                       ||
-||                                                                 ||
-'==================================================================='
-
-
-Setup
-'==================================================================='
+##Setup :beers:
 First, run bundle install from the root directory to install dependencies. Next run rake db:migrate to setup the database tables.
 
 Random data has been generated already and stored for you as JSON in the db/json directory. If you would just like to get up and running quickly, simply run rake db:seed to seed the database with the supplied data.
@@ -37,9 +8,7 @@ Random data has been generated already and stored for you as JSON in the db/json
 Alternatively, you can run rake generate:all to generate a new set of random data, and then rake db:seed to seed the database.
 
 
-Getting Started
-'==================================================================='
-Run ruby bin/run.rb to start the program.
+##Getting StartedRun ruby bin/run.rb to start the program. :beers:
 
                               .sssssssss.
                         .sssssssssssssssssss
@@ -78,9 +47,7 @@ From the main menu, type help to list all of the available commands.
 
 From the main menu you can get a list of breweries and list of your favorite breweries. You can go to the Switch to Different User or Update User Name to Change user info. or go to the See My Favorites to see more breweries.
 
-'==================================================================='
-Models: User < Favorite > Brewery
-'==================================================================='
+##Models: User < Favorite > Brewery :beers:
 
 User
 has_many :favorites
@@ -94,9 +61,8 @@ Brewery
 has_many :favorites
 has_many :users through :favorites
 
-SQL Schema
-'==================================================================='
-  tale breweries
+##SQL Schema :beers:
+  ###tale breweries
   data type   coloumn name
   string       name
   string       street
@@ -108,9 +74,7 @@ SQL Schema
   string       website_url
   datetime     created_at     null: false
   datetime     updated_at     null: false
-  
-'==================================================================='
-  table favorites
+    #table favorites
   data type   coloumn name
   integer     user_id
   integer     brewery_id
@@ -118,16 +82,14 @@ SQL Schema
   datetime    created_at      null: false
   datetime    updated_at      null: false
 
-'==================================================================='
-table users  
+###table users  
 data type  coloumn name 
 string     user_name
 integer    age
 datetime   created_at   null: false
 datetime   updated_at   null: false
 
-'==================================================================='
-User Stories
+###User Stories
 
 As a user, I want to be able to look at all the breweries if given a zipcode
 As a user, I want to favorite from list of breweries
@@ -136,14 +98,12 @@ As a user, I want to see list of breweries
 As a user, I want to be able to switch to a different user without getting out of the program
 As a user, I want to Delete my account along with my favorite list 
 
-'==================================================================='
-API
+##API :beers:
 Breweries DB
 https://api.openbrewerydb.org/breweries
 
-'==================================================================='
 
-Things considering to Improve:
+##Things considering to Improve:  :beers:
 
 Probably list top 5 Breweries within the search instead of all of list
 Adding one more validation question to make sure if the user want to delete their account 
