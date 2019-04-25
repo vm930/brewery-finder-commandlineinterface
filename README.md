@@ -42,12 +42,12 @@ Alternatively, you can run rake generate:all to generate a new set of random dat
                     --A--  Search Brewery by Zip
                     --B--  Search Brewery by States
                     --C--  See My Favorites
-                    --D--  Switch to Diffrent User
+                    --D--  Switch to Different User
                     --E--  Update User Name
                     --F--  Delete My Account
                     --G--  Exit
 
-*From the main menu you can get a list of breweries and list of your favorite breweries. You can go to the Switch to Different User or Update User Name to Change user info. or go to the See My Favorites to see more breweries.*
+*From the main menu, you can get a list of breweries and list of your favorite breweries. You can go to the Switch to Different User or Update User Name to Change user info, or go to the See My Favorites to see more breweries.*
 
 ## Models: User < Favorite > Brewery :beers:
 
@@ -65,7 +65,7 @@ Alternatively, you can run rake generate:all to generate a new set of random dat
 
 ## SQL Schema :beers:
   ### tale breweries
-  data type   coloumn name
+  data type   column name
   string       name
   string       street
   string       city
@@ -78,7 +78,7 @@ Alternatively, you can run rake generate:all to generate a new set of random dat
   datetime     updated_at     null: false
     
   ### table favorites
-  data type   coloumn name
+  data type   column name
   integer     user_id
   integer     brewery_id
   integer     rating
@@ -86,7 +86,7 @@ Alternatively, you can run rake generate:all to generate a new set of random dat
   datetime    updated_at      null: false
 
   ### table users  
-data type  coloumn name 
+data type  column name 
 string     user_name
 integer    age
 datetime   created_at   null: false
@@ -109,6 +109,6 @@ datetime   updated_at   null: false
 ## Things considering to Improve:  :beers:
 
 -Probably list top 5 Breweries within the search instead of all of list
--Adding one more validation question to make sure if the user want to delete their account 
+-Adding one more validation question to make sure if the user wants to delete their account 
 -Adding a functionality of letting user rate their favorite breweries
 -Adding a feature where the breweries can be pull up in a list of top 5 in the local area
